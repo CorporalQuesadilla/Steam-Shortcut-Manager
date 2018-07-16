@@ -5,9 +5,7 @@
 #              In addition to adding the shortcut, the steam://rungameid/### is returned.
 #              Close Steam before running!
 #
-#              Currently hardcoded to Windows Steam installations in C:\Program Files (x86)\Steam\
-#              I'll probably change this at some point, but for now it should take only a second to put in your path to Steam.
-#              Otherwise, this should be cross-platform with Linux/Mac.
+#              Should be cross-platform with Linux/Mac/Windows.
 #
 #              I might make a GUI, or support removing shortcuts at some point. For now, it just adds shortcuts.
 #
@@ -20,9 +18,9 @@
 # Usage:       Run from commandline. Needs the following arguments in this order:
 #              Argument                 Explanation
 #              --------                 -----------
-#              UserID                   Your personal ID - steamID3 [U:1:THIS_PART_HERE_COPY_ME] from https://steamidfinder.com/
+#              Path to Shortcuts.vdf    Requires Your personal ID - steamID3 [U:1:THIS_PART_HERE_COPY_ME] from https://steamidfinder.com/
 #                                           This is for the local path to your shortcuts.vdf file we're modifying,
-#                                           located in \Path\To\Steam\userdata\USERIDHERE\config\shortcuts.vdf
+#                                           located in \Path\To\Steam\userdata\USERIDHERE\config\shortcuts.vdf. Use double quotes.
 #              Name of program          Whatever you want to call it. In double quotes if it has spaces or other funky characters
 #              Path to program or URL   In double quotes if the path has spaces or other funky characters
 #              Path to start program    Basically the folder it's in (use double quotes)
@@ -37,7 +35,7 @@
 #              Categories               Any categories you want it to appear in. If you use spaces in a category name, put it in double quotes
 #
 #              Example:
-#              shortcuts.py UserID WoohooMyProgramWorks C:\d.exe C:\ "C:\Program Files (x86)\Steam\bin\steamservice.exe" "" WHATUPLAUNCH 0 1 1 1 0 tag1 tag2
+#              python shortcuts.py "C:\Program Files (x86)\Steam\userdata\ID_HERE\config\shortcuts.vdf" WoohooMyProgramWorks C:\d.exe C:\ "C:\Program Files (x86)\Steam\bin\steamservice.exe" "" WHATUPLAUNCH 0 1 1 1 0 tag1 tag2
 #
 # Author:      Corporal Quesadilla
 #
@@ -47,7 +45,8 @@
 #              with the exception of the getURL() function, which is under MIT license and adapted from Scott Rice's ICE application
 #              https://github.com/scottrice/Ice/blob/7130b54c8d2fa7d0e2c0994ca1f2aa3fb2a27ba9/ice/steam_grid.py
 #
-#              Since I have adapted these few lines of code, I must include the following (between the sets of three asterisks)
+#              Since I have adapted these few lines of code, I must include the following (between the sets of three asterisks).
+#              Again, the following license refers EXPLICITLY to the contents of the getURL() function.
 #              ***
 #              Copyright (c) 2012-2013, 2013 Scott Rice
 #              All rights reserved.
@@ -75,19 +74,16 @@ import sys
 import crc_algorithms
 
 def findLastEntryNumberAndPosition(pathToShortcutsVDF):
+    # From the end, search backwards to the beginning of the last entry to get it's ID
     foundChars = 1
     target = '\x00\x01appname'
     lookingfor = 'target'
     lastEntryNumber = ''
 
-    # TODO: Change path. Get that instead of ID from argument?
-    #f = open('C:\\Program Files (x86)\\Steam\\userdata\\' + str(pathToShortcutsVDF) + '\\config\\shortcuts.vdf', 'r')
     f = open(str(pathToShortcutsVDF), 'r')
     fileContents = f.read()
 
     for i in range(len(fileContents)):
-        #print i
-        #print repr(fileContents[-i])
         if lookingfor == 'target':
             if (fileContents[-i]) == target[-foundChars]:
                 #print repr(target[-foundChars]) + " found"
@@ -110,40 +106,22 @@ def findLastEntryNumberAndPosition(pathToShortcutsVDF):
                 lastEntryPosition = len(fileContents) - i
             else:
                 break
-    #print repr(fileContents[lastEntryPosition+266]) + "hey"
     f.close()
+    # Although unneccessary, also return the character position of the last entry's ID
     return (lastEntryNumber, lastEntryPosition)
 
 def addEntry(pathToShortcutsVDF, inputTuple):
-    #f = open('C:\\Program Files (x86)\\Steam\\userdata\\' + str(pathToShortcutsVDF) + '\\config\\shortcuts.vdf', 'r+')
+    # Entries are added before the last two characters of the file
     f = open(str(pathToShortcutsVDF), 'r+')
-    #f.close()
     fileContents = f.read()
     f.seek(len(fileContents) - 2)
     endFileContents = f.read()
     f.seek(len(fileContents) - 2)
     f.write(createEntry(inputTuple) + endFileContents)
-    #f.truncate()
     f.close()
 
 def createEntry(inputTuple):
-    '''
-    # Variables
-    Title = 'Paint (testing)'
-    Type = 'exe'
-    quotedPath = "\"C:\\c.exe\""
-    quotedStartDir = "\"C:\\\""
-    entryID = str(int(lastEntryInfo[0])+1)
-
-    # Delimiter Structures
-    delim_header = '\x00'
-    delim_appname = '\x00\x01appname\x00'
-    delim_type = '\x00\x01'
-    delim_path = '\x00'
-    delim_startdir = '\x00\x01StartDir\x00'
-
-    newEntry = delim_header + entryID + delim_appname + str(Title) + delim_type + str(Type) + delim_path + str(quotedPath) + delim_startdir + str(quotedStartDir) + '\x00\x01icon\x00' + '\x00\x01ShortcutPath\x00\x00\x01LaunchOptions\x00\x00\x02IsHidden\x00\x00\x00\x00\x00\x02AllowDesktopConfig\x00\x01\x00\x00\x00\x02AllowOverlay\x00\x01\x00\x00\x00\x02OpenVR\x00\x00\x00\x00\x00\x02LastPlayTime\x00\x00\x00\x00\x00\x00tags\x00\x08\x08'
-    '''
+    # Put together all the variables and delimiters
 
     var_entryID         = inputTuple[0]
     var_appName         = inputTuple[1]
@@ -160,12 +138,12 @@ def createEntry(inputTuple):
     var_tags            = inputTuple[12]
 
 
-    # There are several parts to an entry, all on one line.
+    # There are several parts to an entry, all on one line
     # The data type refers to the input - \x01 indicates String, \x02 indicates boolean, \x00 indicates list
     # Strings must be encapsulated in quotes (aside from launch options)
     # Bools treat '\x01' as True and '\x00' as False
     # Lists are as follows: '\x01' + index + '\x00' + tagContents + '\x00'
-    # I have no idea about Date. Not sure why LastPlayTime is marked as a bool.
+    # I have no idea about Date. Not sure why LastPlayTime is marked as a bool
     #   4 characters, usually ending in '[' (maybe?). All 4 being '\x00' is fine too (default?).
 
 
@@ -189,6 +167,9 @@ def createEntry(inputTuple):
     pass
 
 def inputPreperation(args, lastEntryInfo):
+    # Get all the variables cleaned up
+
+    # This is the newest entry, one more than the last one.
     var_entryID = str(int(lastEntryInfo[0])+1)
 
     # Strings
@@ -219,7 +200,7 @@ def inputPreperation(args, lastEntryInfo):
 
     # Date
     # Since the format hasn't been cracked yet, I'll populate with default
-    #   values if you just keep it as '0'
+    #   values if you just pass in a '0'. Thank me later.
     var_tags= ''
     if args[12] == '0':
         var_lastPlayTime = '\x00\x00\x00\x00'
@@ -251,12 +232,9 @@ def getURL(inputTuple):
 
 def main():
     pathToShortcutsVDF = sys.argv[1]
-    print pathToShortcutsVDF
-    # fileExistenceCheck()
+    # fileExistenceCheck() # check if file exists. NOT IMPLEMENTED YET.
     lastEntryInfo = findLastEntryNumberAndPosition(pathToShortcutsVDF)
     inputTuple = inputPreperation(sys.argv, lastEntryInfo)
-
-    #print lastEntryInfo[0] + 'pp'
     addEntry(pathToShortcutsVDF, inputTuple)
 
     print getURL(inputTuple)
