@@ -31,9 +31,7 @@ You need to fill out every argument in the following order. If any argument has 
 # Arguments
 Argument | Explanation
 -------- | -----------
-Path to Shortcuts.vdf | Requires Your personal ID - steamID3 [U:1:THIS_PART_HERE_COPY_ME] from https://steamidfinder.com/
-                                           This is for the local path to your shortcuts.vdf file we're modifying,
-                                           located in \Path\To\Steam\userdata\USERIDHERE\config\shortcuts.vdf.
+Path to Shortcuts.vdf | Requires Your personal ID - steamID3 [U:1:THIS_PART_HERE_COPY_ME] from https://steamidfinder.com/ This is for the local path to your shortcuts.vdf file we're modifying, located in \Path\To\Steam\userdata\USERIDHERE\config\shortcuts.vdf.
 Name of program | Whatever you want to call it. This is how it appears in Steam.
 Path to program or URL | Direct path to executable file or URL. That means that steam:// or GOG:// links work.
 Path to start program | Basically the path to the folder the game is in. Take the path above and cut the executable file out. If it's a URL, I think you can just leave this blank.
