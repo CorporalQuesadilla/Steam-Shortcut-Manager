@@ -70,6 +70,7 @@ In no particular order:
 * Detect broken files or other malformed data to prevent making issues worse. This also includes the ability to recognize any new attributes Steam may have added so that I don't break the entire file by creating entries with missing attributes.
 * Further documentation on what acceptable values for attributes are. (i.e. can stuff be missing, etc.)
 * Friendlier "experience" - stop asking for things everyone leaves blank by default, like last played date. Accept having no tags. Automatically determine "starting path" from path to executable.
+* Ability to remove shortcuts (perhaps based on id or appname?)
 
 # License
 
