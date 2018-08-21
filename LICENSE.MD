@@ -28,7 +28,7 @@ Since I have adapted a few lines of code, I must include the following (between 
 #              ***
 ```
 #crc_algorithms.py
-The following license is found in this file, but for the same of organization, this file's license is included here:
+The following license is found in this file, but for the sake of completeness, this file's license is included here:
 ```
 #  pycrc -- parameterisable CRC calculation utility and C source code generator
 #
