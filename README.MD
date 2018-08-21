@@ -59,10 +59,9 @@ See here: https://github.com/CorporalQuesadilla/Steam-Shortcut-Manager/wiki/Stea
 
 ## License
 
-This project is licensed under SEE LICENSE.MD
+SEE LICENSE.MD
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Scott Rice for ICE, or rather his work finding how steam:// IDs are generated.
+* PsychoTheHedgehog for also documenting how shortcuts.vdf is laid out. Unfortunately, their work was trashed some time ago and the Google cached version dissappeared sometime in July 2018. It turns out they had discovered essentially the same things I had, but at least it's reassuring to find someone else had documented almost the exact the same things. Their documentation was fairly old (missing some variables added in recent years) and I wasn't a fan of how it was explained anyways, but hey, credit to them for independently finding the same things first. Hopefully my documentation here will remain updated and accessible, as it seems to be the only documentation publicly available now.
