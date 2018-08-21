@@ -8,13 +8,19 @@ Personally, I plan to use it to launch all my games through Steam for controller
 
 Ideally, you could use another application (such as Playnite) to build up your GOG/Steam/Emulated/etc. libraries into one database, then write a basic script to pass all those into Steam using this application!
 
-## Getting Started
+# Documentation
+
+If you're just here because you're interested in how Steam shortcuts and steam:// links are stored/generated, look [here](https://github.com/CorporalQuesadilla/Steam-Shortcut-Manager/wiki/Steam-Shortcuts-Documentation) for documentation.
+
+If you're here for documentation on how this program works, continue reading.
+
+# Getting Started
 
 Make sure Steam is closed. Not sure if there's any harm keeping it open, but I do know Steam won't reflect changes made here until next time it's launched.
 
 Run the program (shortcuts.py) from the command line. Be sure to download both .py files and keep them in the same directory, though.
 
-## Example
+# Example
 ```
 python shortcuts.py "C:\Program Files (x86)\Steam\userdata\ID_HERE\config\shortcuts.vdf" "Super Video Game IV" "C:\SVG IV.exe" C:\ "C:\Path to\an\icon\someEXEorICO.exe" "" "-fullscreen heckno" 0 1 1 1 0 FPS Puzzle
 ```
@@ -22,23 +28,25 @@ will add a shortcut called "WoohooMyProgramWorks" to Steam. It launches "SVG IV.
 
 You need to fill out every argument in the following order. If any argument has spaces or other funky characters (such as the title in my example, which has multiple) you'll need to encapsulate the entire argument with double quotes. To be safe, you probably should do this no matter what.
 
-              Argument                 Explanation
-              --------                 -----------
-              Path to Shortcuts.vdf    Requires Your personal ID - steamID3 [U:1:THIS_PART_HERE_COPY_ME] from https://steamidfinder.com/
+# Arguments
+
+              Argument | Explanation
+              -------- | -----------
+              Path to Shortcuts.vdf | Requires Your personal ID - steamID3 [U:1:THIS_PART_HERE_COPY_ME] from https://steamidfinder.com/
                                            This is for the local path to your shortcuts.vdf file we're modifying,
                                            located in \Path\To\Steam\userdata\USERIDHERE\config\shortcuts.vdf.
-              Name of program          Whatever you want to call it. This is how it appears in Steam.
-              Path to program or URL   Direct path to executable file or URL. That means that steam:// or GOG:// links work.
-              Path to start program    Basically the path to the folder the game is in. Take the path above and cut the executable file out. If it's a URL, I think you can just leave this blank.
-              Path to icon             Optional place to source the icon. BTW, I'm not sure where the Grid/BigPicture image comes from.
-              Shortcut path            No idea what this is. Just do "" (literally 'the empty string' - two double quotes in a row)
-              Launch options           Anything to pass to the exe.
-              Hidden?                  Put a 1 here to make it only visible under "Hidden", anything else won't hide it. You need something though. 0 is fine.
-              Allow Desktop Config?    Use controller's Desktop Configurations in this game. Put a 1 to enable it, anything else to disable. You need to put some argument here. 0 is fine.
-              Allow Steam Overlay?     Put a 1 to enable it, anything else to disable. You need something though. 0 is fine.
-              In VR library?           For the 'VR Library' Category. Put a 1 to enable it, anything else to disable. You need something though. 0 is fine.
-              Last Play Time           Date last played. No idea how this works yet. For now, put 0 and I'll take care of it (defaulting to "Never Played".) Steam will update this once you actually start playing. I don't know why you'd want to fake it with anything else anyways.
-              Categories               Any categories you want it to appear in. If you use spaces in a category name, put it in double quotes
+              Name of program | Whatever you want to call it. This is how it appears in Steam.
+              Path to program or URL | Direct path to executable file or URL. That means that steam:// or GOG:// links work.
+              Path to start program | Basically the path to the folder the game is in. Take the path above and cut the executable file out. If it's a URL, I think you can just leave this blank.
+              Path to icon | Optional place to source the icon. BTW, I'm not sure where the Grid/BigPicture image comes from.
+              Shortcut path | No idea what this is. Just do "" (literally 'the empty string' - two double quotes in a row)
+              Launch options | Anything to pass to the exe.
+              Hidden? | Put a 1 here to make it only visible under "Hidden", anything else won't hide it. You need something though. 0 is fine.
+              Allow Desktop Config? | Use controller's Desktop Configurations in this game. Put a 1 to enable it, anything else to disable. You need to put some argument here. 0 is fine.
+              Allow Steam Overlay? | Put a 1 to enable it, anything else to disable. You need something though. 0 is fine.
+              In VR library? | For the 'VR Library' Category. Put a 1 to enable it, anything else to disable. You need something though. 0 is fine.
+              Last Play Time | Date last played. No idea how this works yet. For now, put 0 and I'll take care of it (defaulting to "Never Played".) Steam will update this once you actually start playing. I don't know why you'd want to fake it with anything else anyways.
+              Categories | Any categories you want it to appear in. Categories are separated by spaces. If you want to use spaces in a category name, put it in double quotes. Everything from this point onward is a category, you can do as many as you like.
 
 ### Prerequisites
 
