@@ -1,4 +1,4 @@
-#shortcuts.py
+# shortcuts.py
 
 Everything in shortcuts.py is licensed under GPL v3 (https://www.gnu.org/licenses/gpl-3.0.en.html) with the exception of the getURL() function, which is under MIT license and adapted from a part of Scott Rice's ICE application at https://github.com/scottrice/Ice/blob/7130b54c8d2fa7d0e2c0994ca1f2aa3fb2a27ba9/ice/steam_grid.py.
 
@@ -27,7 +27,8 @@ Since I have adapted a few lines of code, I must include the following (between 
 #              IN THE SOFTWARE.
 #              ***
 ```
-#crc_algorithms.py
+# crc_algorithms.py
+
 The following license is found in this file, but for the sake of completeness, this file's license is included here:
 ```
 #  pycrc -- parameterisable CRC calculation utility and C source code generator
