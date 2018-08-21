@@ -14,6 +14,8 @@ If you're just here because you're interested in how Steam shortcuts and steam:/
 
 If you're here for documentation on how this program works, continue reading.
 
+Please note that there are some differences in the arguments my program expects vs. how Steam actually stores shortcuts - the documentation below is simply for the "easy" input my program can be given in order to generate the funky input that Steam actually needs. This prevents the user from worrying about funky ASCII characters or quote encapsulation. It's much easier to type 0 than (insert series of invisible characters here).
+
 # Getting Started
 
 Make sure Steam is closed. Not sure if there's any harm keeping it open, but I do know Steam won't reflect changes made here until next time it's launched.
